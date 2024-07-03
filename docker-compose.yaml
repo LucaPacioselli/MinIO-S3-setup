@@ -51,8 +51,8 @@ services:
     networks:
       - net
     volumes:
-      - /home/ubuntu/minio/data:/data
-      - /home/ubuntu/minio/config.env:/etc/config.env
+      - /path/to/git/cloned/repository/data:/data
+      - /path/to/git/cloned/repository/config.env:/etc/config.env
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     labels:
