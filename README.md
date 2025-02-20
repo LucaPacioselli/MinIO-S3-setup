@@ -22,12 +22,14 @@ _NOTE: Before executing the next command, please change directory to the git clo
 
 - Make the client executable and move it to your executable folder:
 
-  `chmod +x mc`
-  `sudo mv mc /usr/local/bin/mc`
+  ```chmod +x mc
+
+  sudo mv mc /usr/local/bin/mc```
 
 - Check if the client is working and activate the autocompletion:
 
   `mc --version`
+
   `mc --autocompletion`
 
 - Use the `mc alias set` command to add an S3-compatible service to the mc configuration:
