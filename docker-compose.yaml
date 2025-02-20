@@ -1,6 +1,6 @@
-#Change <YOUR_EMAIL>, <PATH/TO/GIT/CLONED/REPO> and <YOUR_S3_HOSTNAME> before using this .yaml file.
+#Change <YOUR_EMAIL>, <PATH/TO/GIT/CLONED/REPO> and <S3_HOSTNAME> before using this .yaml file.
 
-version: '3.7'
+version: '3.7' 
 
 volumes:
   letsencrypt:
@@ -12,7 +12,7 @@ networks:
 services:
   proxy:
     container_name: proxy
-    image: traefik
+    image: traefik:v3.0.4 # change the tag if needed
     volumes:
       - letsencrypt:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -41,7 +41,7 @@ services:
       - net
   minio:
     container_name: minio
-    image: quay.io/minio/minio:latest
+    image: quay.io/minio/minio:RELEASE.2024-06-29T01-20-47Z # change the tag if needed
     ports:
       - 9000
     command:
@@ -59,9 +59,9 @@ services:
       - "traefik.enable=true"
       - "traefik.http.middlewares.minio-redirect-ssl.redirectscheme.scheme=https"
       - "traefik.http.routers.minio-nossl.middlewares=minio-redirect-ssl"
-      - "traefik.http.routers.minio-nossl.rule=Host(`<YOUR_S3_HOSTNAME>`)"
+      - "traefik.http.routers.minio-nossl.rule=Host(`<S3_HOSTNAME>`)"
       - "traefik.http.routers.minio-nossl.entrypoints=web"
-      - "traefik.http.routers.minio.rule=Host(`<YOUR_S3_HOSTNAME>`)"
+      - "traefik.http.routers.minio.rule=Host(`<S3_HOSTNAME>`)"
       - "traefik.http.routers.minio.entrypoints=websecure"
       - "traefik.http.routers.minio.tls.certresolver=myhttpchallenge"
       - "traefik.http.routers.minio.tls=true"
